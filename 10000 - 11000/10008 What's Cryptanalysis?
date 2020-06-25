@@ -1,0 +1,56 @@
+#include <iostream>
+#include <ctype.h>
+#include <string.h>
+using namespace std;
+
+int compare (const void * a, const void * b);
+
+typedef struct { 
+    int index;
+    int value;
+} alpha_s;
+
+int main() {
+
+    char c;
+    char a = 'a';
+    char A = 'A';
+    alpha_s alpha[26];
+
+    for(int i=0; i<26; i++) {
+        alpha[i].index = i;
+        alpha[i].value = 0; 
+    }
+
+    while(cin>>c) {
+        if(isalpha(c)) {
+            c = tolower(c);
+            alpha[c-a].value++;
+        }  
+    }
+
+    qsort(alpha, 26, sizeof(alpha_s), compare);
+
+    for(int i=25; i>=0; i--) {
+        if(alpha[i].value>0) {
+            cout<<(char)(alpha[i].index + A)<<" ";
+            cout<<alpha[i].value<<endl;            
+        }
+        else {
+            break;
+        }
+    }
+    return 0;
+}
+
+int compare (const void * a, const void * b)
+{
+    int a_value = ((alpha_s*)a)->value;
+    int b_value = ((alpha_s*)b)->value;
+    int a_index = ((alpha_s*)a)->index;
+    int b_index = ((alpha_s*)b)->index;
+
+    if( (a_value - b_value) > 0 ) return 1;
+    if( (a_value - b_value) < 0 ) return 0;
+    if( (a_value - b_value) == 0 ) return ( (a_index - b_index)<0 ? 1 : 0 );
+}
