@@ -1,0 +1,51 @@
+// #include <iostream>
+// #include <string.h>
+// using namespace std;
+
+// // Rene Decartes once said,
+// // "I think, therefore I am."
+
+// int main() {
+
+//     char s[5];
+
+//     cin.getline(s,5);
+//     cout<<strlen(s);
+
+// }
+
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+int main() {
+
+    char s1[1001];
+    char s2[1001];
+    int count1[26];
+    int count2[26];
+    int count;
+    char a = 'a';
+
+    memset(count1, 0, sizeof(count1));
+    memset(count2, 0, sizeof(count2));
+
+    while(cin.getline(s1, 1001) && cin.getline(s2, 1001)) {
+        for(int i=0; i<strlen(s1); i++) {
+            count1[s1[i]-a]++;
+        }
+        for(int i=0; i<strlen(s2); i++) {
+            count2[s2[i]-a]++;
+        }
+        for(int i=0; i<26; i++) {
+            count = (count1[i] - count2[i])>0 ? count2[i] : count1[i];
+            for(int j=0; j<count; j++) {
+                cout<<(char)(i+a);
+            }
+        }
+        cout<<endl;
+        memset(count1, 0, sizeof(count1));
+        memset(count2, 0, sizeof(count2));
+    }
+    return 0;
+}
