@@ -1,0 +1,30 @@
+#include <iostream>
+#include <set>
+using namespace std;
+
+int main() {
+    int n;
+    int a;
+    int b;
+    int d;
+    set<int> s;
+
+    while(cin >> n) {
+        cin >> a;
+
+        for(int i=0; i<n-1; i++) {
+            cin >> b;
+            d = abs(a - b);
+            if(d >= 1 && d < n) s.insert(d);
+            a = b;
+        }
+
+        if(s.size() == n-1) cout << "Jolly" << endl;
+        else cout << "Not jolly" << endl;
+        
+        s.clear();
+    }
+    return 0;
+}
+
+
