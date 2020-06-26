@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+// "To be or not to be," quoth the Bard, "that
+// is the question".
+// The programming contestant replied: "I must disagree.
+// To `C' or not to `C', that is The Question!"
+
+int main() {
+    char c;
+    int count = 0;
+    while(cin.get(c)) {
+        if(c == '"') {
+            if(count%2 == 0) {
+                cout<<"``";
+            }
+            else {
+                cout<<"''";
+            }
+            count++;     
+        }
+        else {
+            cout<<c;
+        }
+    }
+    return 0;
+}
+
