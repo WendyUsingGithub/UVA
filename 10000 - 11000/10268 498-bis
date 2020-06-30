@@ -1,0 +1,39 @@
+#include <iostream>
+#include <math.h>
+#include <iomanip>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> coefs;
+    int x;
+    int coef;
+    char c;
+    long long power_x = 1;
+    long long sum = 0;
+
+    while(cin >> x) {
+        while(1) {
+            cin >> coef;
+            coefs.push_back(coef);
+            cin.get(c);
+            
+            if(c == '\n') {
+                break;
+            }
+        }
+
+        power_x = 1;
+        sum = 0;
+
+        for(int i=coefs.size()-2; i>=0; i--) {
+            sum += (coefs[i] * (coefs.size() - i - 1) * power_x);
+            power_x *= x;
+        }
+        
+        cout << sum << endl;
+        coefs.clear();
+    }
+    return 0;
+}
+
