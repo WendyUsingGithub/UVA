@@ -9,7 +9,6 @@ int main() {
     int a;
     int b;
     int n;
-    int count = 1;
     int sum = 0;
 
     cin >> t;
@@ -24,9 +23,8 @@ int main() {
         n = (b - a) / 2 + 1;
         sum = (a + b) * n / 2;
         cout << "Case ";
-        cout << count << ": ";
+        cout << i + 1 << ": ";
         cout << sum << endl;
-        count++;
     }
 
     return 0;
