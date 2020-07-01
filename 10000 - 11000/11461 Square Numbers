@@ -35,7 +35,6 @@ int main() {
         
         cout << s[b] - s[a-1] << endl;
     }
-
-   
+    return 0;
 }
 
