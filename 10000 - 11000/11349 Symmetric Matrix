@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int t;
+    char no_use;
+    int N;
+    int m;
+    int f;
+    int center;
+    long long M[101][101];
+
+    cin >> t;
+
+    for(int i=0; i<t; i++) {
+        cin >> no_use;
+        cin >> no_use;
+        cin >> N;
+        
+        f = 0;
+
+        for (int p=0; p<N; p++) {
+            for(int q=0; q<N; q++) {
+                cin >> M[p][q];
+                if(M[p][q] < 0) {
+                    f = 1;
+                }
+            }
+        }   
+
+        if(N % 2 == 1) center = N / 2 + 1;
+        if(N % 2 == 0) center = N / 2;
+
+        if(f == 0) {
+            for (int p=0; p<N; p++) {
+                for(int q=0; q<center; q++) {
+                    if(M[p][q] != M[N - 1 - p][N - 1 - q]) {
+                        p = N;
+                        f = 1;
+                        break;
+                    }
+                }
+            }
+        }
+
+        cout << "Test #" << i + 1 << ": ";
+        if(f == 0) cout << "Symmetric.";
+        if(f == 1) cout << "Non-symmetric.";
+        cout << endl;
+    }
+    return 0;
+}
+
