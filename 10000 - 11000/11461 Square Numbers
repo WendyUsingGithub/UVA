@@ -1,0 +1,41 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+// The input file contains at most 201 lines of inputs.
+// 0 < a ≤ b ≤ 100000
+
+int main() {
+    int N = 100001;
+    int s[N] = {0};
+    int root = 1;
+    int square;
+    int a;
+    int b;
+
+
+    root = 1;
+    square = 1;
+    for(int i=1; i<=N; i++) {
+        if(i == square) {
+            s[i] = s[i-1] + 1;
+            root++;
+            square = root * root;
+        }
+        else {
+            s[i] = s[i-1];
+        }
+    }
+
+    while(1) {
+        cin >> a;
+        cin >> b;
+
+        if(a == 0 && b == 0) break;
+        
+        cout << s[b] - s[a-1] << endl;
+    }
+
+   
+}
+
