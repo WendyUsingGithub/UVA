@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int bin(int num);
+
+int main(){
+    
+    int N;
+    int num;
+    int b1;
+    int b2;
+    cin >> N;
+
+    for(int i=0; i<N; i++) {
+
+        b1 = 0;
+        b2 = 0;
+        cin >> num;
+        b1 = bin(num);
+
+        while(num != 0) {
+            b2 =  b2 + bin(num % 10);
+            // cout << b2 << " ";
+            num = num / 10;
+        }
+        cout << b1 << " " << b2 << endl;
+    }
+
+}
+
+int bin(int num) {
+
+    int one = 0;
+    vector<int>b;
+    while(num != 0) {
+        b.push_back(num % 2);
+        num = num / 2;
+    }
+
+    int b_size = b.size();
+    for(int i=0; i<b_size; i++) {
+        if(b[i] == 1) one++;
+    }
+    return one;
+}
+
+
