@@ -1,0 +1,76 @@
+#include <iostream>
+#include <vector>
+#include <limits.h>
+using namespace std;
+
+int cal_cost(int num, int base, int* cost);
+
+int main(){
+
+    int C;
+    int num;
+    int cost[36];
+    int cost_value;
+    vector<int> cheapest;
+    int cheapest_value;
+    int N;
+
+    cin >> C;
+    for(int cases=1; cases<=C; cases++) {
+
+        for(int i=0; i<36; i++) {
+            cin >> cost[i];
+        }
+
+        cout << "Case " << cases << ":" << endl;
+        cin >> N;
+
+        for(int n=1; n<=N; n++) {
+
+            cheapest.clear();
+            cheapest_value = INT_MAX;
+            cin >> num;
+
+            for(int i=2; i<=36; i++) {
+                cost_value = cal_cost(num, i, cost);
+                if(cheapest_value == cal_cost(num, i, cost)) {
+                    cheapest.push_back(i);
+                }
+                if(cheapest_value > cost_value) {
+                    cheapest_value = cost_value;
+                    cheapest.clear();
+                    cheapest.push_back(i);
+                }
+            }
+
+            cout << "Cheapest base(s) for number " << num << ": ";
+            int cheapest_size = cheapest.size();
+            cout << cheapest[0];
+            for(int i=1; i<cheapest_size; i++) {
+                cout << " " << cheapest[i];
+            }
+            cout << endl;
+        }
+        if(cases != C) cout << endl;
+    }
+    return 0;
+}
+
+int cal_cost(int num, int base, int* cost) {
+
+    int total_cost = 0;
+    vector<int> b;
+
+    while(num != 0) {
+        b.push_back(num % base);
+        num = num / base;
+    }
+
+    int b_size = b.size();
+    for(int i=0; i<b_size; i++) {
+        total_cost = total_cost + cost[b[i]];
+    }
+    return total_cost;
+}
+
+
