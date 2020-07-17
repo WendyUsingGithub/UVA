@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int bin(int num);
+
+int main(){
+    
+    int i;
+    long long I;
+    long long num;
+
+    while(cin >> I) {
+
+        if(I == 0) break;
+        cout << "The parity of ";
+
+        i = bin(I);
+
+        cout << " is " << i;
+        cout << " (mod 2)." << endl;
+    }
+}
+
+int bin(int num) {
+
+    int one = 0;
+    vector<int> b;
+    while(num != 0) {
+        b.push_back(num % 2);
+        num = num / 2;
+    }
+
+    int b_end = b.size() - 1;
+    for(int i=b_end; i>=0; i--) {
+        cout << b[i];
+        if(b[i] == 1) one++;
+    }
+    return one;
+}
+
+
