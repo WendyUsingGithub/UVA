@@ -32,7 +32,7 @@ int main(){
 int bin(int num) {
 
     int one = 0;
-    vector<int>b;
+    vector<int> b;
     while(num != 0) {
         b.push_back(num % 2);
         num = num / 2;
