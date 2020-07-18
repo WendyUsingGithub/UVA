@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+int reverse(int N);
+
+int main() {
+
+    int* prime_table = (int*)malloc(1000001 * sizeof(int)); 
+    int N;
+    int r_N; /* reverse N */
+    
+    memset(prime_table, 0, 1000001 * sizeof(int));
+    prime_table[1] = 1;
+    prime_table[0] = 1;
+
+    for(int i=2; i<=1000; i++) {
+        for(int j=i; j<=500000; j++) {
+            if(i * j <= 1000000) prime_table[i * j] = 1;
+        }
+    }
+
+    while(cin >> N) {
+        r_N = reverse(N);
+
+        if(prime_table[N] == 0) {
+            if(N == r_N) cout << N << " is prime." << endl;
+            else if(prime_table[r_N] == 0) cout << N << " is emirp." << endl;
+            else cout << N << " is prime." << endl;
+        }
+        else {
+            cout << N << " is not prime." << endl;
+        }
+    }
+    free(prime_table);
+    return 0;
+}
+
+int reverse(int N) {
+
+    int sum = 0;
+
+    while(N) {
+        sum = sum * 10 + N % 10;
+        N = N / 10;
+    }
+    return sum;
+}
