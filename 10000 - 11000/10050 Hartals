@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+int main() {
+
+    int T; /* test cases */
+    int N; /* days simulation run */
+    int P; /* political parties */
+    int day;
+    int hartal[100];
+    int days[3650+1];
+    int count;
+    int multiple;
+
+    cin >> T;
+
+    for(int t=0; t<T; t++) {
+        
+        cin >> N;
+        cin >> P;
+        memset(days, 0, (N+1)*sizeof(int));
+
+        for(int p=0; p<P; p++) {
+            cin >> hartal[p];
+        }
+
+        for(int p=0; p<P; p++) {
+
+            multiple = 1;
+            while(hartal[p]*multiple <= N){
+                day = hartal[p] * multiple;
+                multiple++;
+                if((day % 7 == 6) || (day % 7 == 0)) continue;
+                days[day] = 1;
+            }
+        }
+
+        count = 0;
+        for(int i=1; i<=N; i++) {
+            if(days[i] == 1) count++;
+        }      
+
+        cout << count << endl; 
+    }
+    return 0;
+}
+
