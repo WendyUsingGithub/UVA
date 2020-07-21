@@ -1,0 +1,41 @@
+#include <iostream>
+#include <assert.h>
+using namespace std;
+
+int GCD(int n, int m);
+
+int main() {
+
+    int G=0;
+    int table[501];
+    int num;
+
+    table[0] = table[1] = 0;
+    for(int N=2; N<=500; N++) {
+        for(int i=1; i<N; i++) {
+            G = G + GCD(i, N);
+        }
+        table[N] = G;
+    }
+
+    while(1) {
+        cin >> num;
+        if(!num) break;
+        cout << table[num] << endl;
+    }
+    return 0;
+}
+
+int GCD(int n, int m) {
+    int temp;
+
+    assert(m > n);
+
+    while(n) {
+        m = m % n;
+        temp = n;
+        n = m;
+        m = temp;
+    }
+    return m;
+}
