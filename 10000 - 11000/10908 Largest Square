@@ -1,0 +1,67 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int C, M, N, Q;
+    char chars[101][101];
+    int rs[20], cs[20];
+    int r, c;
+    int cases;
+    char center;
+    int high_r, low_r, high_c, low_c, offset;
+    bool flag;
+
+    cin >> C;
+
+    for(int cases=0; cases<C; cases++) {
+
+        cin >> M;
+        cin >> N;
+        cin >> Q;
+
+        for(int m=0; m<M; m++) {
+            for(int n=0; n<N; n++) {
+                cin >> chars[m][n];
+            }
+        }
+
+        for(int q=0; q<Q; q++) {
+            cin >> rs[q];
+            cin >> cs[q];
+        }
+
+        cout << M << " " << N << " " << Q << endl;
+
+        for(int q=0; q<Q; q++) {
+            r = rs[q];
+            c = cs[q];
+            center = chars[r][c];
+            offset = 1;
+            flag = 1;
+
+            while(1) {
+
+                high_r = r + offset;
+                low_r = r - offset;
+                high_c = c + offset;
+                low_c = c - offset;
+
+                if(high_r >= M || high_c >= N || low_r < 0 || low_c < 0) break;
+
+                for(int i=-offset; i<=offset; i++) {
+                    if(chars[low_r][c + i] != center) flag = 0;
+                    if(chars[high_r][c + i] != center) flag = 0;
+                    if(chars[r + i][low_c] != center) flag = 0;
+                    if(chars[r + i][high_c] != center) flag = 0;
+                    if(flag == 0) break;
+                }
+
+                if(flag == 0) break;
+                else offset++;
+            }
+            cout << 2 * offset - 1 << endl;
+        }
+    }
+    return 0;
+}
