@@ -1,0 +1,26 @@
+#include <iostream>
+#include <math.h>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+
+    double s, a;
+    string unit;
+    double chord, arc;
+    double conv = M_PI / 180 / 60;
+
+    while(cin >> s && cin >> a && cin >> unit) {
+
+        if(unit == "deg") a = a * 60;
+        if(a > 180 * 60) a = 360 * 60 - a;
+
+        arc = 2 * (6440 + s) * M_PI * a / 360 / 60;
+        chord = (6440 + s) * sin(a * conv) / cos (a / 2 * conv);
+
+        cout << fixed << setprecision(6) << arc << " " << chord << endl;
+    }
+    return 0;
+}
+
