@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int C;
+    int step[100001];
+    int source_x;
+    int source_y;
+    int dest_x;
+    int dest_y;
+    int source_line;
+    int dest_line;
+    int source_step;
+    int dest_step;
+
+    step[0] = 0;
+    for(int i=1; i<=100000; i++) {
+        step[i] = step[i - 1] + i;
+    }
+
+    cin >> C;
+
+    for(int c=1; c<=C; c++) {
+
+        cin >> source_x >> source_y >> dest_x >> dest_y;
+
+        source_line = source_x + source_y;
+        dest_line = dest_x + dest_y;
+        source_step = step[source_line];
+        source_step = source_step + (source_line - source_y);
+        dest_step = step[dest_line];
+        dest_step = dest_step + (dest_line - dest_y);
+
+        cout << "Case " << c << ": " << dest_step - source_step << endl;
+    }
+
+
+    return 0;
+}
+
