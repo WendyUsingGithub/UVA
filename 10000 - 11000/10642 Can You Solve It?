@@ -34,8 +34,6 @@ int main() {
 
         cout << "Case " << c << ": " << dest_step - source_step << endl;
     }
-
-
     return 0;
 }
 
