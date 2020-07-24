@@ -1,0 +1,64 @@
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
+
+int compare(const void* a, const void* b);
+
+int main() {
+
+    int N;
+    int num[1000001];
+    int source;
+    int dest;
+    int count_in_num;
+    int count;
+    int tmp;
+
+    while(cin >> N) {
+
+        for(int n=0; n<N; n++) {
+            cin >> num[n];        
+        }
+
+        /* sorting input */
+        qsort(num, N, sizeof(int), compare); 
+
+        /* even */
+        if(N % 2 == 0) {
+            source = N / 2 - 1;
+            dest = N / 2;
+            count_in_num = 2; 
+            count = num[dest] - num[source] + 1;
+        }
+        /* odd */
+        else {
+            source = N / 2;
+            dest = N / 2;
+            count_in_num = 1;
+            count = 1;
+        }
+
+        /* adding repeating numbers into count */
+        tmp = source - 1;
+        while(num[source] == num [tmp]) {
+            tmp--;
+            count_in_num++;
+        }
+        tmp = dest + 1;
+        while(num[dest] == num [tmp]) {
+            tmp++;
+            count_in_num++;
+        }
+
+        cout << num[source] << " " << count_in_num << " " << count << endl;
+    }
+
+}
+
+int compare(const void* a, const void* b) {
+
+    int* a_ptr = (int*)a;
+    int* b_ptr = (int*)b;
+
+    return *a_ptr - *b_ptr;
+}
