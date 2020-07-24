@@ -1,0 +1,73 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+class coor_s {
+public:
+    double x;
+    double y;
+
+    coor_s operator+(coor_s);
+    coor_s operator-(coor_s);
+    bool operator==(coor_s);
+};
+
+int main() {
+
+    coor_s t[4], p[3];
+    int center, trivial;
+
+    while(cin >> t[0].x >> t[0].y >> t[1].x >> t[1].y >> t[2].x >> t[2].y >> t[3].x >> t[3].y) {
+        
+        for(int i=0; i<4; i++) {
+            for(int j=i+1; j<4; j++) {
+                if(t[i] == t[j]) {
+                    center = i;
+                    trivial = j;
+                    break;
+                }
+            }
+        }
+
+        p[0] = t[center];
+
+        int count = 1;
+        for(int i=0; i<4; i++) {
+            if(i == center) continue;
+            if(i == trivial) continue;
+            p[count] = t[i];
+            count++;
+        }
+
+        coor_s vectorA = p[1] - p[0];
+        coor_s vectorB = p[2] - p[0];
+        p[3] = vectorA + vectorB + p[0];
+
+        cout << fixed << setprecision(3) << p[3].x << " " << p[3].y << endl;
+        
+    }
+    return 0;
+}
+
+coor_s coor_s::operator+(coor_s b) {
+    coor_s ret;
+
+    ret.x = this->x + b.x;
+    ret.y = this->y + b.y;
+
+    return ret;
+}
+
+coor_s coor_s::operator-(coor_s b) {
+    coor_s ret;
+
+    ret.x = this->x - b.x;
+    ret.y = this->y - b.y;
+
+    return ret;
+}
+
+bool coor_s::operator==(coor_s b) {
+
+    return (this->x == b.x) && ((this->y == b.y));
+}
