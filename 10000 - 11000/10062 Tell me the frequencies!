@@ -1,0 +1,90 @@
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
+
+// Given a line of text you will have to find out the frequencies of the ASCII characters present in it. The
+// given lines will contain none of the first 32 or last 128 ASCII characters. Of course lines may end with
+// \n and \r but always keep those out of consideration.
+
+// Input
+// Several lines of text are given as input. Each line of text is considered as a single input. Maximum
+// length of each line is 1000.
+
+// Output
+// Print the ASCII value of the ASCII characters which are present and their frequency according to the
+// given format below. A blank line should separate each set of output. Print the ASCII characters in the
+// ascending order of their frequencies. If two characters are present the same time print the information
+// of the ASCII character with higher ASCII value first. Input is terminated by end of file.
+
+// Sample Input
+// AAABBC
+// 122333
+
+// c >= 32 <=127
+
+// Sample Output
+// 67 1
+// 66 2
+// 65 3
+// 49 1
+// 50 2
+// 51 3
+
+int compare(const void* a, const void* b);
+
+typedef struct {
+    int c;
+    int freq;
+}symbols;
+
+int main() {
+
+    symbols alphas[256];
+    char c;
+    int flag = 0;
+
+    for(int i=0; i<256; i++) {
+        alphas[i].c = i;
+        alphas[i].freq = 0;
+    }
+
+    while(cin.get(c)) {
+
+        if(c == '\n' || c == '\r') {
+
+            if(flag == 1) cout << endl;
+            if(flag == 0) flag = 1;
+            
+            qsort(alphas, 256, sizeof(symbols), compare);
+
+            for(int i=0; i<256; i++) {
+                if(alphas[i].freq == 0) continue;
+                cout << (int)alphas[i].c << " " << alphas[i].freq << endl;
+            }
+
+            for(int i=0; i<256; i++) {
+                alphas[i].c = i;
+                alphas[i].freq = 0;
+            } 
+            continue;
+        }
+
+        alphas [(int)c].freq++;
+    }
+}
+
+/* a是不是比較大 */
+int compare(const void* a, const void* b) {
+
+    symbols *s_a, *s_b;
+
+    s_a = (symbols*)a;
+    s_b = (symbols*)b;
+
+    if(s_a->freq > s_b->freq) return 1;
+    if(s_a->freq < s_b->freq) return 0;
+    /* 當a的ascii比較大時 a比較小 */
+    if(s_a->freq == s_b->freq) return s_b->c - s_a->c;
+}
+
+
