@@ -1,0 +1,50 @@
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
+
+void swap(int *a, int *b);
+
+int main() {
+
+    long long N;
+    int L;
+    int l[51];
+    int count;
+    int flag;
+
+    cin >> N;
+
+    for(int n=0; n<N; n++) {
+
+        cin >> L;
+        count = 0;
+        for(int i=0; i<L; i++) {
+            cin >> l[i];
+        }
+
+        while(1) {
+            flag = 0;
+            for(int i=1; i<L; i++) {
+                if(l[i - 1] > l[i]) {
+                    swap(&l[i - 1], &l[i]);
+                    count++;
+                    flag = 1;
+                }
+            }
+            if(flag == 0) {
+                cout << "Optimal train swapping takes " << count << " swaps." << endl;
+                break;
+            }
+        }
+    }
+    return 0;
+}
+
+void swap(int *a, int *b) {
+
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
