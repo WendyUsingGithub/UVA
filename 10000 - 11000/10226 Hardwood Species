@@ -1,0 +1,71 @@
+#include <stdlib.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+
+string *trees;
+
+int compare(const void* indexA, const void* indexB) {
+    
+    int id_A = *(int*)indexA;
+    int id_B = *(int*)indexB;
+
+    return trees[id_A].compare(trees[id_B]);
+}
+
+int main() {
+
+    int N, C;
+    int species, counts;
+    int w;
+    trees = new string[1000001];
+    int *indexs = new int[1000001];
+    int *count = new int[10001];
+
+    cin >> N;
+
+    cin.get();
+    cin.get();
+
+    for(int n=0; n<N; n++) {
+
+        if(n >= 1) cout << endl;
+
+        w = 0;
+        while(getline (cin,trees[w])) {
+            if(trees[w] == "") break;
+            w++;
+        }
+        C = w;
+
+        for(int i=0; i<C; i++) {
+            indexs[i] = i;
+        }
+
+        qsort(indexs, C, sizeof(int), compare);
+
+        species = 0;
+        count[0] = 1;
+        for(int i=1; i<C; i++) {
+
+            if(trees[indexs[i]].compare(trees[indexs[i - 1]])) {
+                species++;
+                count[species] = 1;
+            }
+            else {
+                count[species]++;
+            }
+        }
+
+        species++;
+        counts = -1;
+
+        for(int i=0; i<species; i++) {
+  
+            counts = counts + count[i];
+            cout << trees[indexs[counts]] << " " << fixed << setprecision(4) << (double)count[i] / C * 100 << endl;;
+        }
+    }
+}
