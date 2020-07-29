@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <map>
+#include <iomanip>
+using namespace std;
+
+int main() {
+
+    map<string,int> tree;
+    map<string,int>::iterator it;
+    string line, name;
+
+    int N, C;
+    int w;
+
+    cin >> N;
+
+    cin.get();
+    cin.get();
+
+    for(int n=0; n<N; n++) {
+
+        tree.clear();
+        if(n >= 1) cout << endl;
+
+        w = 0;
+        while(getline (cin,name)) {
+            if(name == "") break;
+            w++;
+
+            it = tree.find(name);
+
+            if(it == tree.end()) {
+                tree[name] = 1;
+            }
+            else {
+                tree[name]++;
+            } 
+        }
+        C = w;
+
+        for(it=tree.begin(); it!=tree.end();it++) {
+            cout << it->first << " " << fixed << setprecision(4) << 100 * (double)it->second / w << endl;
+        }
+    }
+}
