@@ -3,7 +3,6 @@
 #include <string.h>
 using namespace std;
 
-
 void addition(int *finger_counts, int *notes_count);
 
 int main() {
