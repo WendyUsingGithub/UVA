@@ -24,7 +24,7 @@ int main() {
         if(n >= 1) cout << endl;
 
         w = 0;
-        while(getline (cin,name)) {
+        while(getline(cin,name)) {
             if(name == "") break;
             w++;
 
