@@ -1,0 +1,96 @@
+#include <stdlib.h>
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+
+void addition(int *finger_counts, int *notes_count);
+
+int main() {
+
+    int N;
+    string notes[15];
+    string song;
+    int notes_table[14][15][10];
+    int len;
+    int note, last_note;
+    int finger_counts[10];
+
+    int c = 2, d = 3, e = 4, f = 5, g = 6, a = 0, b = 1; 
+    int C = 9, D = 10, E = 11, F = 12, G = 13, A = 7, B = 8;
+
+    notes[14] = "0000000000";
+    notes[c] = "0111001111";
+    notes[d] = "0111001110";
+    notes[e] = "0111001100";
+    notes[f] = "0111001000";
+    notes[g] = "0111000000";
+    notes[a] = "0110000000";
+    notes[b] = "0100000000";
+    notes[C] = "0010000000";
+    notes[D] = "1111001110";
+    notes[E] = "1111001100";
+    notes[F] = "1111001000";
+    notes[G] = "1111000000";
+    notes[A] = "1110000000";
+    notes[B] = "1100000000";
+
+    for(int note=0; note<14; note++) {
+        for(int last_note=0; last_note<=14; last_note++) {
+            for(int finger=0; finger<10; finger++) {
+                if(notes[note][finger] == '0') {
+                    notes_table[note][last_note][finger] = 0;
+                }
+                if(notes[note][finger] == '1' && notes[last_note][finger] == '1') {
+                    notes_table[note][last_note][finger] = 0;
+                }
+                if(notes[note][finger] == '1' && notes[last_note][finger] == '0') {
+                    notes_table[note][last_note][finger] = 1;
+                }
+            }
+        }
+    }
+    
+    cin >> N;
+    cin.get();
+
+    for(int n=0; n<N; n++) {
+
+        getline(cin, song);
+        len = song.length();
+        memset(finger_counts, 0, 10 * sizeof(int));
+
+        if(song == "") {
+            cout << "0 0 0 0 0 0 0 0 0 0" << endl;
+            continue;
+        }
+
+        for(int l=0; l<len; l++) {
+            if(song[l] >= 'a' && song[l] <= 'g') song[l] = song[l] - 'a';
+            if(song[l] >= 'A' && song[l] <= 'G') song[l] = song[l] - 'A' + 7;
+        }
+
+        note = song[0];
+        addition(finger_counts, notes_table[note][14]);
+
+        for(int l=1; l<len; l++) {
+
+            note = song[l];
+            last_note = song[l - 1];
+            addition(finger_counts, notes_table[note][last_note]);
+        }
+
+        cout << finger_counts[0];
+        for(int l=1; l<10; l++) {
+            cout << " " << finger_counts[l];
+        }
+        cout << endl;
+    }
+}
+
+void addition(int *finger_counts, int *notes_count) {
+    
+    for(int i=0; i<10; i++) {
+        finger_counts[i] = finger_counts[i] + notes_count[i];
+    }
+}
