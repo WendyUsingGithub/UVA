@@ -1,0 +1,73 @@
+#include <stdlib.h>
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main() {
+
+    int N = 0, E = 1, S = 2, W = 3; 
+    int R = 0, L = 1;
+    char dir;
+    int moves[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    int turns[4][2] = {{E, W}, {S, N}, {W, E}, {N, S}};
+    int x, y;
+    int X, Y;
+    string tasks;
+    int len;
+    bool lost;
+    string NESW = "NESW";
+    vector<int> scentX;
+    vector<int> scentY;
+
+    cin >> X >> Y;
+
+    while(cin >> x ) {
+
+        cin >> y >> dir;
+
+        if(dir == 'N') dir = N;
+        if(dir == 'E') dir = E;
+        if(dir == 'S') dir = S;
+        if(dir == 'W') dir = W;
+
+        cin.get();
+        getline(cin, tasks);
+        len = tasks.length();
+        lost = false;
+
+        for(int l=0; l<len; l++) {
+            
+            if(tasks[l] == 'F') {
+                x = x + moves[dir][0];
+                y = y + moves[dir][1];
+
+                if(x > X || y > Y || x < 0 || y < 0) { 
+                    x = x - moves[dir][0];
+                    y = y - moves[dir][1];
+
+                    lost = true;
+
+                    for(int i=0; i<scentX.size(); i++) {
+                        if(x == scentX[i] && y == scentY[i]) {
+                            lost = false;
+                        }
+                    }
+
+                    if(lost) {
+                        scentX.push_back(x);
+                        scentY.push_back(y);
+                        break;
+                    }
+                }
+            }
+
+            if(tasks[l] == 'R') dir = turns[dir][R];
+            if(tasks[l] == 'L') dir = turns[dir][L];
+        }
+
+        cout << x << " " << y << " " << NESW[dir];
+        if(lost) cout << " LOST" << endl;
+        else cout << endl;
+    }
+}
