@@ -47,7 +47,6 @@ int main() {
             
         }
 
-        if(flag == 0) cout << len / N << endl;
-        else cout << "1" << endl;
+        cout << len / N << endl;
     }
 }
