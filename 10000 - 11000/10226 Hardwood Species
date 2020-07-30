@@ -33,7 +33,7 @@ int main() {
         if(n >= 1) cout << endl;
 
         w = 0;
-        while(getline (cin,trees[w])) {
+        while(getline(cin,trees[w])) {
             if(trees[w] == "") break;
             w++;
         }
