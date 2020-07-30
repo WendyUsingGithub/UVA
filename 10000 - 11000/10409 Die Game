@@ -1,0 +1,64 @@
+#include <stdlib.h>
+#include <iostream>
+#include <string.h>
+#include <assert.h>
+using namespace std;
+
+int main() {
+
+    int N;
+    string dir; /*direction */
+    int top;
+
+    while(cin >> N && N != 0) {
+
+        if(N == 0) break;
+
+        int v[3] = {2, 1, 5}; /* vertical */
+        int h[3] = {3, 1, 4}; /* horizontal */
+        int b = 6;  /* bottom */
+        int tmp;
+
+        for(int n=0; n<N; n++) {
+
+            cin >> dir;
+
+            if(dir == "north") {
+                tmp = v[0];
+                v[0] = v[1];
+                v[1] = v[2];
+                v[2] = b;
+                b = tmp;
+                h[1] = v[1];
+            }
+
+            if(dir == "south") {
+                tmp = v[2];
+                v[2] = v[1];
+                v[1] = v[0];
+                v[0] = b;
+                b = tmp;
+                h[1] = v[1];
+            }
+        
+            if(dir == "west") {
+                tmp = h[0];
+                h[0] = h[1];
+                h[1] = h[2];
+                h[2] = b;
+                b = tmp;
+                v[1] = h[1];
+            }
+
+            if(dir == "east") {
+                tmp = h[2];
+                h[2] = h[1];
+                h[1] = h[0];
+                h[0] = b;
+                b = tmp;
+                v[1] = h[1];
+            }
+        }
+        cout << h[1] << endl;
+    }
+}
