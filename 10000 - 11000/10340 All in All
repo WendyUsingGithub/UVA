@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    string sequence = "";
+    string subsequence = "";
+    char c;
+    int flag; /* subsequence is finished */
+    int len, sublen;
+    int count;
+    
+    while(1) {
+
+        /* input subsequence & sequence */
+        while(1) {
+
+            /* end of cases */
+            if(!cin.get(c)) {
+                return 0;
+            }
+
+            /* end of this line */
+            if(c == '\n') {
+                flag = 0;
+                break;
+            }
+
+            /* end of sequence */
+            if(flag == 1) {
+                sequence = sequence + c;
+            }
+
+            /* end of subsequence */
+            if(flag == 0) {
+                if(c == ' ') flag = 1;
+                subsequence = subsequence + c;
+            }
+        }
+
+        sublen = subsequence.length();
+        len = sequence.length();
+        count = 0;
+
+        /* subsequence[count] is current subsequence charactor */
+        for(int i=0; i<len; i++) {
+            if(sequence[i] == subsequence[count]) count++;
+        }
+
+        if(count >= (sublen - 1)) cout << "Yes" << endl;
+        else cout << "No" << endl;
+
+        subsequence = "";
+        sequence = "";
+    }
+}
