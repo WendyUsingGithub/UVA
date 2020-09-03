@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int main() {
+    
+    int *a = new int[1000001];
+    int *b = new int[1000001];
+    int *sum = new int[1000001];
+
+    int C, L;
+    int carry;
+
+    cin >> C;
+
+    for(int c=0; c<C; c++){
+
+        cin >> L;
+        carry =  0;
+
+        for(int i=0; i<L; i++) {
+            cin >> a[i];
+            cin >> b[i];
+        }
+
+        carry = 0;
+
+        for(int i=L-1; i>=0; i--) {
+
+            sum[i] = (a[i] + b[i] + carry) % 10;
+            carry = (a[i] + b[i] + carry) / 10;
+        }
+
+        for(int i=0; i<L; i++) {
+            cout << sum[i];
+        }
+        
+        cout << endl;
+        if(c != C-1) cout << endl;
+    }
+
+    delete [] a;
+    delete [] b;
+    delete [] sum;
+}
+
