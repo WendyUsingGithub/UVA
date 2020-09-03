@@ -1,0 +1,89 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+using namespace std;
+
+string keep_num(string *str, int m);
+
+int main() {
+
+    string input[100];
+    string output[100];
+
+    string input_num;
+    string output_num;
+
+    int m, n;
+    int run = 1;
+    bool AC, WA, PE;
+    
+    while(cin >> m && m != 0) {
+
+        cin.get();
+
+        AC = true;
+        WA = true; 
+        PE = true;
+
+        for(int i=0; i<m; i++) {
+            getline(cin, input[i]);
+        }
+
+        cin >> n;
+        cin.get();
+
+        for(int i=0; i<n; i++) {
+            getline(cin, output[i]);
+        }
+
+        if(m == n) {
+            for(int i=0; i<m; i++) {
+                if(input[i].length() != output[i].length()) {
+                    AC = false;
+                    break;
+                }
+
+                for(int j=0; j<input[i].length(); j++) {
+                    if(input[i][j] != output[i][j]) {
+                        AC = false;
+                        break;
+                    }
+                }
+
+                if(AC == false) break;
+            }
+        }
+        else {
+            AC = false;
+        }
+
+        cout << "Run #" << run << ": ";  
+        run++;
+
+        if(AC == true) cout << "Accepted" << endl;
+        else {
+
+            input_num = keep_num(input, m);
+            output_num = keep_num(output, n);
+
+            if(input_num == output_num) cout << "Presentation Error" << endl;
+            else cout << "Wrong Answer" << endl;
+        }
+        
+    }
+}
+
+string keep_num(string *str, int m) {
+    
+    string s;
+
+    for(int i=0; i<m; i++) {
+        for(int j=0; j< (str[i]).length(); j++) {
+            if(isdigit(str[i][j]) != 0) {
+                s = s + str[i][j];
+            }            
+        }
+    }
+
+    return s;
+}
