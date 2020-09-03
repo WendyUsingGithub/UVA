@@ -1,0 +1,91 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+vector<int> string_to_vector_int(string str);
+vector<int> multiply(vector<int> v1, vector<int> v2);
+void cout_vector(vector<int> v);
+
+int main() {
+
+    string s1, s2;
+    vector<int> v1, v2, s;
+    int len1, len2;
+    vector<int> r;
+
+    while(cin >> s1 && cin >> s2) {
+
+        if(s1 == "0" || s2 == "0") cout << "0" << endl;
+        else {
+            len1 = s1.size();
+            len2 = s2.size();
+
+            v1 = string_to_vector_int(s1);
+            v2 = string_to_vector_int(s2);
+
+            // cout_vector(v1);
+            // cout_vector(v2);
+
+            r = multiply(v1, v2);
+            cout_vector(r);
+        }
+    }
+
+   return 0;
+}
+
+vector<int> string_to_vector_int(string str) {
+
+    vector<int> v;
+    int len = str.size();
+    v.resize(len);
+
+    for(int i=0; i<len; i++) {
+        v[i] = str[i] - '0';
+    }
+
+    return v;
+}
+
+vector<int> multiply(vector<int> v1, vector<int> v2) {
+
+    vector<int> r;
+
+    int len1 = v1.size();
+    int len2 = v2.size();
+    int len = len1+len2-1;
+    int carry;
+
+    r.resize(len);
+
+    for(int i=0; i<len; i++) {
+        r[i] = 0;
+    }
+
+    for(int i=0; i<len1; i++) {
+        for(int j=0; j<len2; j++) {
+
+            r[i+j] = r[i+j] + v1[i] * v2[j];
+        }
+    }
+
+    for(int i=len-1; i>=0; i--) {
+        r[i] = r[i] + carry;
+        carry = r[i] / 10;
+        r[i] = r[i] % 10;
+    }
+
+    if(carry != 0) r.insert(r.begin(), carry);
+
+    return r;
+}
+
+void cout_vector(vector<int> v) {
+
+    int len = v.size();
+    for(int i=0; i<len; i++) {
+        cout << v[i];
+    }
+    cout << endl;
+}
